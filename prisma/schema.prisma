@@ -15,10 +15,20 @@ datasource db {
 // MODELS (Tabelle DB)
 model Book {
 id Int @id @default(autoincrement())
-titolo String @unique
+titolo String @unique @db.VarChar(50)
 descrizione String? @db.Text
 autore String @db.Text
 prezzo Decimal @db.Decimal (8, 2)
 createdAt DateTime @default(now())
 updatedAt DateTime @updatedAt
+category Category @relation(fields: [categoryId], references: [id])
+categoryId Int
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(50)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  products Book[]
 }
