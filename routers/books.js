@@ -40,7 +40,7 @@ router.get("/:id", async(req, res) => {
 })
 // STORE
 router.post("/", async(req, res) => {
-    const {titolo, descrizione, autore, prezzo, categoryID} = req.body;
+    const {titolo, descrizione, autore, prezzo, categoryId} = req.body;
     const newProduct = await prisma.book.create({
         data: {
             titolo,
@@ -55,6 +55,22 @@ router.post("/", async(req, res) => {
     })
     res.status(201).json(newProduct)
 })
-
-
+// UPDATE
+router.patch("/:id", async (req, res) => {
+    const id = Number(req.params.id)
+    if (Number.isInteger(id)) {
+        res.status(400).json({
+            message: 'Invalid book id'
+        })
+    }
+    const books = await prisma.book.update({
+        where: {
+            id
+        }
+    })
+})
+// DESTROY
+router.delete("/", async (req, res) => {
+    
+})
 export default router;
