@@ -19,11 +19,23 @@ router.get("/", async (req, res) => {
 // SHOW
 router.get("/:id", async(req, res) => {
     const id = Number(req.params.id)
+
+    if (Number.isInteger(id)) {
+        res.status(404).json({
+            error: 'Invalid book id'
+        })
+    }
     const books = await prisma.book.findUnique({
         where: {
             id
         }
     })
+    if (!books) {
+        res.status(404).json({
+            error: 'Book not found'
+        })
+        return
+    }
     res.json(books)
 })
 export default router;
