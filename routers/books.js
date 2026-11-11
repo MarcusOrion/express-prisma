@@ -14,4 +14,5 @@ router.post("/", store)
 router.patch("/:id", update)
 // DESTROY
 router.delete("/:id", destroy)
+
 export default router;

@@ -5,6 +5,7 @@ import notFound from './middlewares/notFound.js'
 // Setup
 const app = express();
 const port = 3000;
+app.use(express.json())
 // Routing
 app.get('/', (req,res) => {
     res.send('This is the shop API homepage')
