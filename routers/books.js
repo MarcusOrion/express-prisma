@@ -63,14 +63,29 @@ router.patch("/:id", async (req, res) => {
             message: 'Invalid book id'
         })
     }
-    const books = await prisma.book.update({
+    const {titolo, descrizione, autore, prezzo, isActive, categoryId} = req.body;
+    const updateProducts = await prisma.book.update({
         where: {
             id
+        },
+        data: {
+            titolo,
+            descrizione,
+            autore,
+            prezzo,
+            isActive,
+            categoryId
         }
     })
+    res.json(updateProducts)
 })
 // DESTROY
 router.delete("/", async (req, res) => {
-    
+    await prisma.book.delete({
+        where: {
+            id,
+        }
+    })
+    res.sendStatus(204)
 })
 export default router;
